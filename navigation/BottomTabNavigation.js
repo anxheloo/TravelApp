@@ -24,11 +24,12 @@ const BottomTabNavigation = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      activeColor="#EB6A58"
-      tabBarHideKeyBoard={true}
-      headerShown={false}
-      inactiveColor="#3e2465"
-      barStyle={{ paddingBottom: 48 }}
+      // activeColor="#EB6A58"
+      // tabBarHideKeyBoard={true}
+      // headerShown={false}
+      // inactiveColor="#3e2465"
+      // barStyle={{ paddingBottom: 48 }}
+      // tabBarStyle={tabBarStyle}
     >
       <Tab.Screen
         name="Home"

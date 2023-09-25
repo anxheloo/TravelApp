@@ -3,7 +3,7 @@ import React from "react";
 import { COLORS, SIZES, SHADOWS, TEXT } from "../../constants/theme";
 import ReusableText from "../Reusable/ReusableText";
 import ReusableBtn from "../Buttons/ReusableBtn";
-import HightSpacer from "../Reusable/HightSpacer";
+import HeightSpacer from "../Reusable/HeightSpacer";
 import { useNavigation } from "@react-navigation/native";
 
 const Slides = ({ item }) => {
@@ -21,7 +21,7 @@ const Slides = ({ item }) => {
           color={COLORS.white}
         ></ReusableText>
 
-        <HightSpacer height={30}></HightSpacer>
+        <HeightSpacer height={30}></HeightSpacer>
 
         <ReusableBtn
           onPress={() => {

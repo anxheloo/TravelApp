@@ -7,6 +7,9 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import OnBoarding from "./screens/onboarding/OnBoarding";
 import BottomTabNavigation from "./navigation/BottomTabNavigation";
+import Search from "./screens/search/Search";
+import CountryDetails from "./screens/details/CountryDetails";
+import Recommended from "./screens/details/Recommended";
 
 const Stack = createNativeStackNavigator();
 
@@ -42,21 +45,22 @@ export default function App() {
           component={BottomTabNavigation}
           options={{ headerShown: false }}
         />
+        <Stack.Screen
+          name="Search"
+          component={Search}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="CountryDetails"
+          component={CountryDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="Recommended"
+          component={Recommended}
+          options={{ headerShown: false }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
-  textStyle: {
-    fontFamily: "xtraBold",
-    fontSize: 18,
-  },
-});
