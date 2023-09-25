@@ -28,7 +28,7 @@ const CountryTile = ({ item }) => {
         <ReusableText
           text={item.country}
           family={"medium"}
-          size={TEXT.large}
+          size={TEXT.medium}
           color={COLORS.black}
           align={"center"}
         ></ReusableText>

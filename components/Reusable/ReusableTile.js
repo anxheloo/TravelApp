@@ -37,7 +37,7 @@ const ReusableTile = ({ item, onPress }) => {
           <HeightSpacer height={8}></HeightSpacer>
 
           <ReusableText
-            text={"Locations"}
+            text={item.location}
             family={"medium"}
             size={14}
             color={COLORS.gray}
