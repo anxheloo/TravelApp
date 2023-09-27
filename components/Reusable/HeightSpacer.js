@@ -1,8 +1,8 @@
 import { View } from "react-native";
 import React from "react";
 
-const HightSpacer = ({ height }) => {
+const HeightSpacer = ({ height }) => {
   return <View style={{ height: height }}></View>;
 };
 
-export default HightSpacer;
+export default HeightSpacer;

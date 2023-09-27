@@ -10,6 +10,10 @@ import BottomTabNavigation from "./navigation/BottomTabNavigation";
 import Search from "./screens/search/Search";
 import CountryDetails from "./screens/details/CountryDetails";
 import Recommended from "./screens/details/Recommended";
+import PlaceDetails from "./screens/details/PlaceDetails";
+import HotelDetails from "./screens/details/HotelDetails";
+import HotelList from "./screens/details/HotelList";
+import HotelSearch from "./screens/search/HotelSearch";
 
 const Stack = createNativeStackNavigator();
 
@@ -58,6 +62,26 @@ export default function App() {
         <Stack.Screen
           name="Recommended"
           component={Recommended}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="PlaceDetails"
+          component={PlaceDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HotelDetails"
+          component={HotelDetails}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HotelList"
+          component={HotelList}
+          options={{ headerShown: false }}
+        />
+        <Stack.Screen
+          name="HotelSearch"
+          component={HotelSearch}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

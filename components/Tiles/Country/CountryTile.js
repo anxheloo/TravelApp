@@ -12,7 +12,7 @@ const CountryTile = ({ item }) => {
   return (
     <TouchableOpacity
       onPress={() => {
-        navigation.navigate("CountryDetails", item);
+        navigation.navigate("CountryDetails", item, navigation);
       }}
     >
       <View>

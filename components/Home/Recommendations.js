@@ -101,7 +101,12 @@ const Recommendations = () => {
         showsHorizontalScrollIndicator={false}
         contentContainerStyle={{ columnGap: SIZES.medium }}
         renderItem={({ item }) => (
-          <ReusableTile item={item} onPress={() => {}}></ReusableTile>
+          <ReusableTile
+            item={item}
+            onPress={() => {
+              navigation.navigate("PlaceDetails", item._id);
+            }}
+          ></ReusableTile>
         )}
       ></FlatList>
     </View>

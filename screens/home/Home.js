@@ -1,4 +1,10 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ReusableText from "../../components/Reusable/ReusableText";
@@ -7,41 +13,50 @@ import { AntDesign } from "@expo/vector-icons";
 import HeightSpacer from "../../components/Reusable/HeightSpacer";
 import Places from "../../components/Home/Places";
 import Recommendations from "../../components/Home/Recommendations";
+import BestHotels from "../../components/Home/BestHotels";
 
 const Home = ({ navigation }) => {
   return (
-    <SafeAreaView style={styles.container}>
-      <View>
-        <View style={styles.rowWithSpace}>
+    <ScrollView>
+      <SafeAreaView style={styles.container}>
+        <View>
+          <View style={styles.rowWithSpace}>
+            <ReusableText
+              text={"Hey User!"}
+              family={"regular"}
+              size={TEXT.large}
+              color={COLORS.black}
+            ></ReusableText>
+
+            <TouchableOpacity
+              onPress={() => {
+                navigation.navigate("Search");
+              }}
+              style={styles.box}
+            >
+              <AntDesign name="search1" size={26}></AntDesign>
+            </TouchableOpacity>
+          </View>
+          <HeightSpacer height={SIZES.xLarge}></HeightSpacer>
           <ReusableText
-            text={"Hey User!"}
-            family={"regular"}
+            text={"Places"}
+            family={"medium"}
             size={TEXT.large}
             color={COLORS.black}
           ></ReusableText>
-
-          <TouchableOpacity
-            onPress={() => {
-              navigation.navigate("Search");
-            }}
-            style={styles.box}
-          >
-            <AntDesign name="search1" size={26}></AntDesign>
-          </TouchableOpacity>
         </View>
-        <HeightSpacer height={SIZES.xLarge}></HeightSpacer>
-        <ReusableText
-          text={"Places"}
-          family={"medium"}
-          size={TEXT.large}
-          color={COLORS.black}
-        ></ReusableText>
-      </View>
 
-      <Places></Places>
+        <Places></Places>
 
-      <Recommendations></Recommendations>
-    </SafeAreaView>
+        <Recommendations></Recommendations>
+
+        <HeightSpacer height={30}></HeightSpacer>
+
+        <BestHotels></BestHotels>
+
+        <HeightSpacer height={150}></HeightSpacer>
+      </SafeAreaView>
+    </ScrollView>
   );
 };
 
