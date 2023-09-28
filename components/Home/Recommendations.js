@@ -1,5 +1,6 @@
 import {
   FlatList,
+  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -99,12 +100,14 @@ const Recommendations = () => {
         keyExtractor={(item) => item._id}
         horizontal
         showsHorizontalScrollIndicator={false}
-        contentContainerStyle={{ columnGap: SIZES.medium }}
+        contentContainerStyle={{
+          columnGap: SIZES.medium,
+        }}
         renderItem={({ item }) => (
           <ReusableTile
             item={item}
             onPress={() => {
-              navigation.navigate("PlaceDetails", item._id);
+              navigation.navigate("PlaceDetails", item);
             }}
           ></ReusableTile>
         )}

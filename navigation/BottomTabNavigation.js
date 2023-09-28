@@ -11,11 +11,16 @@ import { COLORS } from "../constants/theme";
 const Tab = createBottomTabNavigator();
 
 const tabBarStyle = {
-  // padding: 20,
+  paddingTop: 20,
+  paddingBottom: 20,
+  // flexDirection: "row",
+  // justifyContent: "center",
+  // alignContent: "center",
+  // alignItems: "center",
   borderRadius: 20,
   height: 80,
   position: "absolute",
-  bottom: 20,
+  bottom: 40,
   left: 20,
   right: 20,
 };
@@ -24,12 +29,9 @@ const BottomTabNavigation = () => {
   return (
     <Tab.Navigator
       initialRouteName="Home"
-      // activeColor="#EB6A58"
-      // tabBarHideKeyBoard={true}
-      // headerShown={false}
-      // inactiveColor="#3e2465"
-      // barStyle={{ paddingBottom: 48 }}
-      // tabBarStyle={tabBarStyle}
+      // screenOptions={{
+      //   tabBarStyle: { tabBarStyle },
+      // }}
     >
       <Tab.Screen
         name="Home"
@@ -39,11 +41,19 @@ const BottomTabNavigation = () => {
           tabBarShowLabel: false,
           headerShown: false,
           tabBarIcon: ({ focused }) => (
+            // <View
+            //   style={{
+            //     alignItems: "center",
+            //     justifyContent: "center",
+            //     // flex: 1,
+            //   }}
+            // >
             <Ionicons
               name={focused ? "grid" : "grid-outline"}
               color={focused ? COLORS.red : COLORS.gray}
               size={26}
             ></Ionicons>
+            // </View>
           ),
         }}
       />

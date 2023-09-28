@@ -66,6 +66,9 @@ const HotelList = () => {
     <SafeAreaView style={{ marginHorizontal: 20 }}>
       <View style={{ height: 50 }}>
         <AppBar
+          top={10}
+          right={0}
+          left={0}
           title={"Nearby Hotels"}
           color={COLORS.white}
           color1={COLORS.white}
@@ -88,7 +91,7 @@ const HotelList = () => {
             <ReusableTile
               item={item}
               onPress={() => {
-                navigation.navigate("HotelDetails", item._id);
+                navigation.navigate("HotelDetails", item);
               }}
             ></ReusableTile>
           )}

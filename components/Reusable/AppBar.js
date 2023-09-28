@@ -5,11 +5,21 @@ import { AntDesign } from "@expo/vector-icons";
 import ReusableText from "./ReusableText";
 import { useNavigation } from "@react-navigation/native";
 
-const AppBar = ({ title, color, color1, icon, onPress, onPress1 }) => {
+const AppBar = ({
+  title,
+  color,
+  color1,
+  icon,
+  onPress,
+  onPress1,
+  top,
+  left,
+  right,
+}) => {
   const navigation = useNavigation();
 
   return (
-    <View style={styles.overlay}>
+    <View style={styles.overlay(top, left, right)}>
       <View style={styles.rowWithSpace}>
         <TouchableOpacity onPress={onPress} style={styles.box(color)}>
           <AntDesign name="left" size={26}></AntDesign>
@@ -31,13 +41,13 @@ const AppBar = ({ title, color, color1, icon, onPress, onPress1 }) => {
 };
 
 const styles = StyleSheet.create({
-  overlay: {
+  overlay: (top, left, right) => ({
     position: "absolute",
-    top: 10,
-    left: 0,
-    right: 0,
+    top: top,
+    left: left,
+    right: right,
     justifyContent: "center",
-  },
+  }),
 
   rowWithSpace: {
     flexDirection: "row",

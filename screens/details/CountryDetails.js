@@ -15,6 +15,9 @@ import { useNavigation } from "@react-navigation/native";
 import ReusableText from "../../components/Reusable/ReusableText";
 import DescriptionText from "../../components/Reusable/DescriptionText";
 import { Feather } from "@expo/vector-icons";
+import ReusableBtn from "../../components/Buttons/ReusableBtn";
+import HeightSpacer from "../../components/Reusable/HeightSpacer";
+import PopularList from "../../components/Country/PopularList";
 
 const CountryDetails = ({ route, navigation }) => {
   const item = route.params;
@@ -50,64 +53,88 @@ const CountryDetails = ({ route, navigation }) => {
   };
 
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View>
-          <NetworkImage
-            source={country.imageUrl}
-            width={"100"}
-            height={350}
-            radius={30}
-          ></NetworkImage>
+    <ScrollView>
+      <View>
+        <NetworkImage
+          source={country.imageUrl}
+          width={"100%"}
+          height={350}
+          radius={30}
+        ></NetworkImage>
 
-          <AppBar
-            title={country.country}
-            color={COLORS.white}
-            // color1={COLORS.white}
-            // icon={"search1"}
-            onPress={() => navigation.goBack()}
-            onPress1={() => {}}
-          ></AppBar>
-        </View>
+        <AppBar
+          title={country.country}
+          top={40}
+          left={20}
+          right={20}
+          color={COLORS.white}
+          color1={COLORS.white}
+          icon={"search1"}
+          onPress={() => navigation.goBack()}
+          onPress1={() => {}}
+        ></AppBar>
+      </View>
 
-        <View style={styles.description}>
-          <ReusableText
-            text={country.region}
-            family={"medium"}
-            size={TEXT.xLarge}
-            color={COLORS.black}
-            align={"center"}
-          ></ReusableText>
+      <HeightSpacer height={10}></HeightSpacer>
 
-          <DescriptionText
-            // lines={3}
-            text={country.description}
-          ></DescriptionText>
+      <View style={styles.description}>
+        <ReusableText
+          text={country.region}
+          family={"medium"}
+          size={TEXT.xLarge}
+          color={COLORS.black}
+          align={"center"}
+        ></ReusableText>
 
-          <View style={{ alignContent: "center" }}>
-            <View
-              style={{
-                flexDirection: "row",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <ReusableText
-                text={"Popular Destinations"}
-                family={"medium"}
-                size={TEXT.large}
-                color={COLORS.black}
-                // align={"center"}
-              ></ReusableText>
+        <HeightSpacer height={10}></HeightSpacer>
 
-              <TouchableOpacity onPress={() => {}}>
-                <Feather name="list" size={20}></Feather>
-              </TouchableOpacity>
-            </View>
+        <DescriptionText lines={6} text={country.description}></DescriptionText>
+
+        <View style={{ alignContent: "center" }}>
+          <HeightSpacer height={30}></HeightSpacer>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <ReusableText
+              text={"Popular Destinations"}
+              family={"medium"}
+              size={TEXT.large}
+              color={COLORS.black}
+              // align={"center"}
+            ></ReusableText>
+
+            <TouchableOpacity onPress={() => {}}>
+              <Feather name="list" size={20}></Feather>
+            </TouchableOpacity>
           </View>
+
+          <HeightSpacer height={30}></HeightSpacer>
+
+          <PopularList data={country.popular}></PopularList>
+
+          <HeightSpacer height={10}></HeightSpacer>
+
+          <ReusableBtn
+            onPress={() => {
+              navigation.navigate("HotelSearch", item);
+            }}
+            btnText={"Find Best Hotels"}
+            textColor={COLORS.white}
+            width={SIZES.width - 40}
+            backgroundColor={COLORS.green}
+            borderWidth={0}
+            borderColor={COLORS.green}
+          ></ReusableBtn>
         </View>
-      </ScrollView>
-    </SafeAreaView>
+
+        <HeightSpacer height={30}></HeightSpacer>
+      </View>
+    </ScrollView>
   );
 };
 

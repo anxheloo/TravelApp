@@ -66,6 +66,9 @@ const Recommended = () => {
     <SafeAreaView style={{ marginHorizontal: 20 }}>
       <View style={{ height: 50 }}>
         <AppBar
+          top={10}
+          right={0}
+          left={0}
           title={"Recommendations"}
           color={COLORS.white}
           color1={COLORS.white}
@@ -83,7 +86,7 @@ const Recommended = () => {
         <FlatList
           data={recommendations}
           keyExtractor={(item) => item._id}
-          contentContainerStyle={{ gap: 10 }}
+          contentContainerStyle={{ gap: 10, height: "100%" }}
           renderItem={({ item }) => (
             <ReusableTile
               item={item}
