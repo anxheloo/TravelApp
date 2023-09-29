@@ -27,6 +27,7 @@ const HotelCard = ({ item, margin, onPress }) => {
             family={"medium"}
             size={TEXT.medium}
             color={COLORS.black}
+            numberOfLines={1}
           ></ReusableText>
 
           <HeightSpacer height={5}></HeightSpacer>

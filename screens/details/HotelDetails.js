@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React from "react";
 import { ScrollView } from "react-native";
 import AppBar from "../../components/Reusable/AppBar";
@@ -9,6 +9,10 @@ import HeightSpacer from "../../components/Reusable/HeightSpacer";
 import { Rating } from "react-native-stock-star-rating";
 import DescriptionText from "../../components/Reusable/DescriptionText";
 import HotelMap from "../../components/Hotel/HotelMap";
+import { Feather } from "@expo/vector-icons";
+import ReviewsList from "../../components/Hotel/ReviewsList";
+import WidthSpacer from "../../components/Reusable/WidthSpacer";
+import ReusableBtn from "../../components/Buttons/ReusableBtn";
 
 const HotelDetails = ({ navigation, route }) => {
   // const item = route.params;
@@ -17,6 +21,11 @@ const HotelDetails = ({ navigation, route }) => {
     availability: {
       start: "2023-08-20T00:00:00.000Z",
       end: "2023-08-25T00:00:00.000Z",
+    },
+
+    coordinates: {
+      latitude: 37.7749,
+      longitude: -122.4194,
     },
     _id: "64c675793cfa5e847bcd5436",
     country_id: "64c62bfc65af9f8c969a8d04",
@@ -29,8 +38,6 @@ const HotelDetails = ({ navigation, route }) => {
     rating: 4.8,
     review: "2312 Reviews",
     location: "San Francisco, CA",
-    latitude: 37.7749,
-    longitude: -122.4194,
     price: 400,
     facilities: [
       {
@@ -39,13 +46,43 @@ const HotelDetails = ({ navigation, route }) => {
       },
     ],
     __v: 0,
+
+    reviews: [
+      {
+        _id: "64d38ff59af9119acfab0ece",
+        review:
+          "Lorem ipsum cabone mir plako si ke qen me shnetasdfsadfsadfsadfadsfsad",
+        rating: 4.6,
+        user: {
+          _id: "64c5d95adc7efae2a45ec376",
+          username: "John Doe",
+          profile:
+            "https://d326fntlu7tb1e.cloudfront.net/uploads/4c004766-c0ad-42ed-bef1-6a7616b24c11-vinci_11.jpg",
+        },
+        updatedAt: "2023-08-09",
+      },
+
+      {
+        _id: "64d797efa5628cddef4fce58",
+        review:
+          "Lorem ipsum cabone mir plako si ke qen me shnetasdfsadfsadfasdfdsafsdafsdaf",
+        rating: 4.6,
+        user: {
+          _id: "64c5d95adc7efae2a45ec376",
+          username: "Zoe Doe",
+          profile:
+            "https://d326fntlu7tb1e.cloudfront.net/uploads/4c004766-c0ad-42ed-bef1-6a7616b24c11-vinci_11.jpg",
+        },
+        updatedAt: "2023-08-09",
+      },
+    ],
   };
 
   let coordinates = {
     id: hotel._id,
     title: hotel.title,
-    latitude: hotel.latitude,
-    longitude: hotel.longitude,
+    latitude: hotel.coordinates.latitude,
+    longitude: hotel.coordinates.longitude,
     latitudeDelta: 0.01,
     longitudeDelta: 0.01,
   };
@@ -162,8 +199,78 @@ const HotelDetails = ({ navigation, route }) => {
           ></ReusableText>
 
           <HotelMap coordinates={coordinates}></HotelMap>
+
+          <HeightSpacer height={30}></HeightSpacer>
+
+          <View
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <ReusableText
+              text={"Reviews"}
+              family={"medium"}
+              size={SIZES.large}
+              color={COLORS.black}
+            ></ReusableText>
+
+            <TouchableOpacity onPress={() => {}}>
+              <Feather name={"list"} size={20}></Feather>
+            </TouchableOpacity>
+          </View>
+
+          <HeightSpacer height={10}></HeightSpacer>
+
+          <ReviewsList reviews={hotel.reviews}></ReviewsList>
+        </View>
+
+        <HeightSpacer height={20}></HeightSpacer>
+
+        <View
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+            },
+            styles.bottom,
+          ]}
+        >
+          <View>
+            <ReusableText
+              text={`$ ${hotel.price}`}
+              family={"regular"}
+              size={SIZES.large}
+              color={COLORS.black}
+            ></ReusableText>
+
+            <HeightSpacer height={5}></HeightSpacer>
+
+            <ReusableText
+              text={"Jan -1 - Dec 25"}
+              family={"regular"}
+              size={SIZES.medium}
+              color={COLORS.black}
+            ></ReusableText>
+          </View>
+
+          <ReusableBtn
+            onPress={() => {
+              navigation.navigate("SelectRoom");
+            }}
+            btnText={"Select Room"}
+            textColor={COLORS.white}
+            width={(SIZES.width - 50) / 2}
+            backgroundColor={COLORS.green}
+            borderWidth={0}
+            borderColor={COLORS.green}
+          ></ReusableBtn>
         </View>
       </View>
+
+      <HeightSpacer height={500}></HeightSpacer>
     </ScrollView>
   );
 };
@@ -177,7 +284,7 @@ const styles = StyleSheet.create({
   titleContainer: {
     margin: 15,
     backgroundColor: COLORS.lightWhite,
-    height: 120,
+    height: 125,
     position: "absolute",
     top: 170,
     left: 0,
@@ -187,6 +294,13 @@ const styles = StyleSheet.create({
 
   titleColumn: {
     padding: 15,
+  },
+
+  bottom: {
+    paddingHorizontal: 30,
+    backgroundColor: COLORS.lightWhite,
+    height: 90,
+    paddingVertical: 20,
   },
 });
 

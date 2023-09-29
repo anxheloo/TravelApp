@@ -14,6 +14,7 @@ import PlaceDetails from "./screens/details/PlaceDetails";
 import HotelDetails from "./screens/details/HotelDetails";
 import HotelList from "./screens/details/HotelList";
 import HotelSearch from "./screens/search/HotelSearch";
+import SelectRoom from "./screens/details/SelectRoom";
 
 const Stack = createNativeStackNavigator();
 
@@ -82,6 +83,12 @@ export default function App() {
         <Stack.Screen
           name="HotelSearch"
           component={HotelSearch}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="SelectRoom"
+          component={SelectRoom}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

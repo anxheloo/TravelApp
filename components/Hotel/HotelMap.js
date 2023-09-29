@@ -4,10 +4,21 @@ import { TouchableOpacity } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 
 const HotelMap = ({ coordinates }) => {
+  markerCoordinates = {
+    latitude: coordinates.latitude,
+    longitude: coordinates.longitude,
+    latitudeDelta: coordinates.latitudeDelta,
+    latitudeDelta: coordinates.longitudeDelta,
+  };
+
   return (
     <TouchableOpacity onPress={() => {}}>
-      <MapView style={styles.maps} region={coordinates}>
-        <Marker coordinates={coordinates} title={coordinates.title}></Marker>
+      <MapView style={styles.maps} region={markerCoordinates}>
+        <Marker
+          coordinate={markerCoordinates}
+          title={coordinates.title}
+          pinColor={"red"}
+        ></Marker>
       </MapView>
     </TouchableOpacity>
   );
