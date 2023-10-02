@@ -21,6 +21,7 @@ import PopularList from "../../components/Country/PopularList";
 
 const PlaceDetails = ({ navigation, route }) => {
   const item = route.params;
+  // console.log(item);
 
   const place = {
     _id: "64d062a3de20d7c932f1f70a",

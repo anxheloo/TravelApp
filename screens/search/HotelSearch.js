@@ -5,6 +5,7 @@ import {
   TextInput,
   TouchableOpacity,
   FlatList,
+  Image,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -79,13 +80,13 @@ const HotelSearch = ({ route, navigation }) => {
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ height: 50, alignItems: "center" }}>
         <AppBar
-          title={""}
+          title={"Find Best Hotels"}
           top={20}
           left={20}
           right={20}
           color={COLORS.white}
           color1={COLORS.white}
-          icon={"search1"}
+          icon={"filter"}
           onPress={() => navigation.goBack()}
           onPress1={() => {}}
         ></AppBar>
@@ -115,7 +116,6 @@ const HotelSearch = ({ route, navigation }) => {
           ></Image>
         </View>
       ) : (
-        // <View style={{ marginLeft: 10 }}>
         <FlatList
           data={hotels}
           keyExtractor={(item) => item._id}
@@ -128,13 +128,15 @@ const HotelSearch = ({ route, navigation }) => {
               margin={10}
             ></HotelCard>
           )}
+          // showsVerticalScrollIndicator={false}
           contentContainerStyle={{
-            // height: "100%",
+            flex: 1,
+            alignItems: "center",
             gap: 10,
+            marginLeft: 10,
           }}
           numColumns={2}
         ></FlatList>
-        // </View>
       )}
     </SafeAreaView>
   );
@@ -149,7 +151,7 @@ const styles = StyleSheet.create({
     borderColor: COLORS.blue,
     borderWidth: 1,
     borderRadius: SIZES.medium,
-    marginVertical: SIZES.medium,
+    marginVertical: SIZES.small,
     height: 50,
   },
 
