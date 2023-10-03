@@ -7,6 +7,9 @@ import Chat from "../screens/chat/Chat";
 import Profile from "../screens/profile/Profile";
 import { Ionicons } from "@expo/vector-icons";
 import { COLORS } from "../constants/theme";
+import Successful from "../screens/bookings/Successful";
+import Failed from "../screens/bookings/Failed";
+import AuthTopTab from "./AuthTopTab";
 
 const Tab = createBottomTabNavigator();
 
@@ -17,12 +20,20 @@ const tabBarStyle = {
   // justifyContent: "center",
   // alignContent: "center",
   // alignItems: "center",
+  borderWidth: 1,
+  borderColor: COLORS.lightWhite,
   borderRadius: 20,
   height: 80,
   position: "absolute",
   bottom: 40,
   left: 20,
   right: 20,
+  shadowColor: COLORS.lightGrey,
+  shadowOffset: { width: 3, height: 3 },
+  shadowOpacity: 5,
+  shadowRadius: 12,
+  elevation: 7,
+  opacity: 20,
 };
 
 const BottomTabNavigation = () => {
@@ -77,7 +88,7 @@ const BottomTabNavigation = () => {
 
       <Tab.Screen
         name="Chat"
-        component={Chat}
+        component={AuthTopTab}
         options={{
           tabBarStyle: tabBarStyle,
           tabBarShowLabel: false,
