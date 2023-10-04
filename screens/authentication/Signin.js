@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, TextInput } from "react-native";
+import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
 import React, { useState } from "react";
 import { COLORS, SIZES } from "../../constants/theme";
 import { Formik } from "formik";
@@ -26,7 +26,7 @@ const Signin = ({ navigation }) => {
   const [obsecureText, setObsecureText] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <ScrollView style={styles.container}>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
@@ -123,19 +123,23 @@ const Signin = ({ navigation }) => {
 
             <HeightSpacer height={30}></HeightSpacer>
 
-            <ReusableBtn
-              onPress={handleSubmit}
-              btnText={"SIGN IN"}
-              textColor={COLORS.white}
-              width={SIZES.width - 50}
-              backgroundColor={COLORS.green}
-              borderWidth={1}
-              borderColor={COLORS.green}
-            ></ReusableBtn>
+            <View style={{ alignItems: "center" }}>
+              <ReusableBtn
+                onPress={handleSubmit}
+                btnText={"SIGN IN"}
+                textColor={COLORS.white}
+                width={SIZES.width - 50}
+                backgroundColor={COLORS.green}
+                borderWidth={1}
+                borderColor={COLORS.green}
+              ></ReusableBtn>
+            </View>
           </View>
         )}
       </Formik>
-    </View>
+
+      <HeightSpacer height={200}></HeightSpacer>
+    </ScrollView>
   );
 };
 
