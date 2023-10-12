@@ -1,11 +1,12 @@
 import {
+  ImageBackground,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from "react-native";
-import React from "react";
+import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import ReusableText from "../../components/Reusable/ReusableText";
 import { COLORS, SIZES, TEXT } from "../../constants/theme";
