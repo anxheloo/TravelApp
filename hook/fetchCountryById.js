@@ -1,18 +1,20 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-const fetchCountries = () => {
-  const [countries, setCountries] = useState([]);
+const fetchCountryById = (id) => {
+  const [countryById, setCountryById] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://192.168.1.236:4001/api/country");
-      setCountries(response.data.countries);
+      const response = await axios.get(
+        `http://192.168.1.236:4001/api/country/${id}`
+      );
+      setCountryById(response.data.country);
       setIsLoading(false);
-      // console.log("THIS IS COUNTRIES:", countries[0]);
+      // console.log("THIS IS COUNTRIES:", countryById);
     } catch (error) {
       setError(error);
     } finally {
@@ -29,7 +31,7 @@ const fetchCountries = () => {
     fetchData();
   };
 
-  return { countries, isLoading, error, refetch };
+  return { countryById, isLoading, error, refetch };
 };
 
-export default fetchCountries;
+export default fetchCountryById;

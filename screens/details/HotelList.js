@@ -102,7 +102,7 @@ const HotelList = () => {
               <ReusableTile
                 item={item}
                 onPress={() => {
-                  navigation.navigate("HotelDetails", item);
+                  navigation.navigate("HotelDetails", item._id);
                 }}
               ></ReusableTile>
             )}

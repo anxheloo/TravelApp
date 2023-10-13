@@ -1,18 +1,20 @@
 import axios from "axios";
 import React, { useState, useEffect } from "react";
 
-const fetchCountries = () => {
-  const [countries, setCountries] = useState([]);
+const fetchPlacesByCountryId = (countryId, limit) => {
+  const [placesByCountryId, setPlacesByCountryId] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const fetchData = async () => {
     setIsLoading(true);
     try {
-      const response = await axios.get("http://192.168.1.236:4001/api/country");
-      setCountries(response.data.countries);
+      const response = await axios.get(
+        `http://192.168.1.236:4001/api/place/byCountry/${countryId}?limit=${limit}`
+      );
+      setPlacesByCountryId(response.data.places);
       setIsLoading(false);
-      // console.log("THIS IS COUNTRIES:", countries[0]);
+      // console.log("THIS IS COUNTRIES:", countryById);
     } catch (error) {
       setError(error);
     } finally {
@@ -29,7 +31,7 @@ const fetchCountries = () => {
     fetchData();
   };
 
-  return { countries, isLoading, error, refetch };
+  return { placesByCountryId, isLoading, error, refetch };
 };
 
-export default fetchCountries;
+export default fetchPlacesByCountryId;

@@ -22,6 +22,7 @@ import Failed from "../travel_app/screens/bookings/Failed";
 import Successful from "../travel_app/screens/bookings/Successful";
 import AuthTopTab from "./navigation/AuthTopTab";
 import SelectedRoom from "./screens/details/SelectedRoom";
+import PopularDestinations from "./screens/popular/PopularDestinations";
 
 const Stack = createNativeStackNavigator();
 
@@ -130,6 +131,12 @@ export default function App() {
         <Stack.Screen
           name="SelectedRoom"
           component={SelectedRoom}
+          options={{ headerShown: false }}
+        />
+
+        <Stack.Screen
+          name="PopularDestinations"
+          component={PopularDestinations}
           options={{ headerShown: false }}
         />
       </Stack.Navigator>

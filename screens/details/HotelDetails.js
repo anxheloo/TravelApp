@@ -13,85 +13,52 @@ import { Feather } from "@expo/vector-icons";
 import ReviewsList from "../../components/Hotel/ReviewsList";
 import WidthSpacer from "../../components/Reusable/WidthSpacer";
 import ReusableBtn from "../../components/Buttons/ReusableBtn";
+import fetchHotelById from "../../hook/fetchHotelById";
+import { ActivityIndicator } from "react-native";
 
 const HotelDetails = ({ navigation, route }) => {
-  // const item = route.params;
+  const id = route.params;
+  console.log("THIS IS HOTEL ID:", id);
 
-  const hotel = {
-    availability: {
-      start: "2023-08-20T00:00:00.000Z",
-      end: "2023-08-25T00:00:00.000Z",
-    },
+  const { hotel, isLoading, error, refetch } = fetchHotelById(id);
 
-    coordinates: {
-      latitude: 37.7749,
-      longitude: -122.4194,
-    },
-    _id: "64c675793cfa5e847bcd5436",
-    country_id: "64c62bfc65af9f8c969a8d04",
-    title: "Urban Chic Boutique Hotel",
-    description:
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Mauris sit amet massa vitae tortor condimentum lacinia quis. Elit ut aliquam purus sit amet luctus. Nunc mi ipsum faucibus vitae aliquet. Et magnis dis parturient montes nascetur ridiculus mus mauris. Vel fringilla est ullamcorper eget nulla facilisi.",
-    contact: "64c5d95adc7efae2a45ec376",
-    imageUrl:
-      "https://d326fntlu7tb1e.cloudfront.net/uploads/5da4db00-e83f-449a-a97a-b7fa80a5bda6-aspen.jpeg",
-    rating: 4.8,
-    review: "2312 Reviews",
-    location: "San Francisco, CA",
-    price: 400,
-    facilities: [
-      {
-        wifi: true,
-        _id: "64c675793cfa5e847bcd5437",
-      },
-    ],
-    __v: 0,
+  // console.log("THIS IS TITLE:,", hotel.title);
+  // console.log("THIS IS TITLE:,", hotel);
 
-    reviews: [
-      {
-        _id: "64d38ff59af9119acfab0ece",
-        review:
-          "Lorem ipsum cabone mir plako si ke qen me shnetasdfsadfsadfsadfadsfsad",
-        rating: 4.6,
-        user: {
-          _id: "64c5d95adc7efae2a45ec376",
-          username: "John Doe",
-          profile:
-            "https://d326fntlu7tb1e.cloudfront.net/uploads/4c004766-c0ad-42ed-bef1-6a7616b24c11-vinci_11.jpg",
-        },
-        updatedAt: "2023-08-09",
-      },
+  if (isLoading) {
+    return (
+      <View
+        style={{
+          width: SIZES.width,
+          height: SIZES.height,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <ActivityIndicator
+          size={SIZES.xxLarge}
+          color={COLORS.lightBlue}
+        ></ActivityIndicator>
+      </View>
+    );
+  }
 
-      {
-        _id: "64d797efa5628cddef4fce58",
-        review:
-          "Lorem ipsum cabone mir plako si ke qen me shnetasdfsadfsadfasdfdsafsdafsdaf",
-        rating: 4.6,
-        user: {
-          _id: "64c5d95adc7efae2a45ec376",
-          username: "Zoe Doe",
-          profile:
-            "https://d326fntlu7tb1e.cloudfront.net/uploads/4c004766-c0ad-42ed-bef1-6a7616b24c11-vinci_11.jpg",
-        },
-        updatedAt: "2023-08-09",
-      },
-    ],
-  };
-
-  let coordinates = {
-    id: hotel._id,
-    title: hotel.title,
-    latitude: hotel.coordinates.latitude,
-    longitude: hotel.coordinates.longitude,
-    latitudeDelta: 0.01,
-    longitudeDelta: 0.01,
-  };
+  const coordinates = hotel
+    ? {
+        id: hotel._id,
+        title: hotel.title,
+        latitude: hotel.coordinates.latitude,
+        longitude: hotel.coordinates.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      }
+    : {};
 
   return (
     <ScrollView>
       <View style={{ height: 80 }}>
         <AppBar
-          title={hotel.title}
+          title={hotel?.title}
           top={50}
           left={20}
           right={20}
@@ -107,7 +74,7 @@ const HotelDetails = ({ navigation, route }) => {
         <View style={styles.container}>
           <View>
             <NetworkImage
-              source={hotel.imageUrl}
+              source={hotel?.imageUrl}
               width={"100%"}
               height={220}
               radius={25}
@@ -117,7 +84,7 @@ const HotelDetails = ({ navigation, route }) => {
           <View style={styles.titleContainer}>
             <View style={styles.titleColumn}>
               <ReusableText
-                text={hotel.title}
+                text={hotel?.title}
                 family={"medium"}
                 size={SIZES.xLarge}
                 color={COLORS.black}
@@ -127,7 +94,7 @@ const HotelDetails = ({ navigation, route }) => {
               <HeightSpacer height={10}></HeightSpacer>
 
               <ReusableText
-                text={hotel.location}
+                text={hotel?.location}
                 family={"medium"}
                 size={SIZES.medium}
                 color={COLORS.black}
@@ -144,7 +111,7 @@ const HotelDetails = ({ navigation, route }) => {
                 }}
               >
                 <Rating
-                  stars={hotel.rating}
+                  stars={hotel?.rating}
                   maxStars={5}
                   size={25}
                   bordered={false}
@@ -152,7 +119,7 @@ const HotelDetails = ({ navigation, route }) => {
                 ></Rating>
 
                 <ReusableText
-                  text={`(${hotel.review})`}
+                  text={`(${hotel?.review})`}
                   family={"medium"}
                   size={SIZES.large}
                   color={COLORS.gray}
@@ -176,7 +143,10 @@ const HotelDetails = ({ navigation, route }) => {
 
           <HeightSpacer height={10}></HeightSpacer>
 
-          <DescriptionText lines={6} text={hotel.description}></DescriptionText>
+          <DescriptionText
+            lines={6}
+            text={hotel?.description}
+          ></DescriptionText>
 
           <HeightSpacer height={10}></HeightSpacer>
 
@@ -191,7 +161,7 @@ const HotelDetails = ({ navigation, route }) => {
           <HeightSpacer height={10}></HeightSpacer>
 
           <ReusableText
-            text={hotel.location}
+            text={hotel?.location}
             family={"regular"}
             size={SIZES.small + 2}
             color={COLORS.black}
@@ -223,7 +193,7 @@ const HotelDetails = ({ navigation, route }) => {
 
           <HeightSpacer height={10}></HeightSpacer>
 
-          <ReviewsList reviews={hotel.reviews}></ReviewsList>
+          <ReviewsList reviews={hotel?.reviews}></ReviewsList>
         </View>
 
         <HeightSpacer height={20}></HeightSpacer>
@@ -240,7 +210,7 @@ const HotelDetails = ({ navigation, route }) => {
         >
           <View>
             <ReusableText
-              text={`$ ${hotel.price}`}
+              text={`$ ${hotel?.price}`}
               family={"regular"}
               size={SIZES.large}
               color={COLORS.black}
