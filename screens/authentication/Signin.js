@@ -1,4 +1,11 @@
-import { StyleSheet, Text, View, TextInput, ScrollView } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput,
+  ScrollView,
+  Alert,
+} from "react-native";
 import React, { useState } from "react";
 import { COLORS, SIZES } from "../../constants/theme";
 import { Formik } from "formik";
@@ -8,6 +15,9 @@ import WidthSpacer from "../../components/Reusable/WidthSpacer";
 import { TouchableOpacity } from "react-native";
 import HeightSpacer from "../../components/Reusable/HeightSpacer";
 import ReusableBtn from "../../components/Buttons/ReusableBtn";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
 
 const validationSchema = Yup.object().shape({
   password: Yup.string()
@@ -25,13 +35,82 @@ const Signin = ({ navigation }) => {
   const [response, setResponse] = useState(null);
   const [obsecureText, setObsecureText] = useState(false);
 
+  // const navigation = useNavigation();
+
+  const login = async (values) => {
+    setLoader(true);
+
+    try {
+      const response = await axios.post(
+        `http://192.168.1.236:4001/api/login`,
+        values
+      );
+
+      if (response.status === 200) {
+        setLoader(false);
+        console.log(response.data);
+
+        await AsyncStorage.setItem("id", JSON.stringify(response.data.id));
+        await AsyncStorage.setItem("token", response.data.token);
+
+        // const id = await AsyncStorage.getItem("id");
+        navigation.navigate("Home");
+        // console.log("THIS IS ID:", id);
+      } else {
+        Alert.alert("Error Loggin in", "Please provie valid credentials", [
+          {
+            text: "Cancel",
+            onPress: () => {},
+          },
+          {
+            text: "Continue",
+            onPress: () => {},
+          },
+          { defaultIndex: 1 },
+        ]);
+      }
+    } catch (error) {
+      Alert.alert(
+        "Error Loggin in",
+        "Please provie valid credentials",
+        error[
+          ({
+            text: "Cancel",
+            onPress: () => {},
+          },
+          {
+            text: "Continue",
+            onPress: () => {},
+          },
+          { defaultIndex: 1 })
+        ]
+      );
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const errorLogin = () => {
+    Alert.alert("Invalid Form", "Please provide all required fields", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+      },
+      {
+        text: "Continue",
+        onPress: () => {},
+      },
+      { defaultIndex: 1 },
+    ]);
+  };
+
   return (
     <ScrollView style={styles.container}>
       <Formik
         initialValues={{ email: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(value) => {
-          console.log(value);
+        onSubmit={(values) => {
+          login(values);
         }}
       >
         {({
@@ -125,7 +204,7 @@ const Signin = ({ navigation }) => {
 
             <View style={{ alignItems: "center" }}>
               <ReusableBtn
-                onPress={handleSubmit}
+                onPress={isValid ? handleSubmit : errorLogin}
                 btnText={"SIGN IN"}
                 textColor={COLORS.white}
                 width={SIZES.width - 50}

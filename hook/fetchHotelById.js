@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 
 const fetchHotelById = (id) => {
   const [hotel, setHotel] = useState();
-  // const [coordinates, setCoordinates] = useState();
+  const [coordinates, setCoordinates] = useState();
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
@@ -13,19 +13,19 @@ const fetchHotelById = (id) => {
       const response = await axios.get(
         `http://192.168.1.236:4001/api/hotel/${id}`
       );
-      const fetchedHotel = response.data.hotel;
+      setHotel(response.data.hotel);
 
-      // const coordinates = {
-      //   id: fetchedHotel._id,
-      //   title: fetchedHotel.title,
-      //   latitude: fetchedHotel.coordinates.latitude,
-      //   longitude: fetchedHotel.coordinates.longitude,
-      //   latitudeDelta: 0.01,
-      //   longitudeDelta: 0.01,
-      // };
-      console.log("THIS ISFETCHED:", fetchedHotel);
-      setHotel(fetchedHotel);
-      // setCoordinates(coordinates);
+      const hotelCoordinates = response.data.hotel.coordinates;
+      const coordinate = {
+        id: response.data.hotel._id,
+        title: response.data.hotel.title,
+        latitude: hotelCoordinates.latitude,
+        longitude: hotelCoordinates.longitude,
+        latitudeDelta: 0.01,
+        longitudeDelta: 0.01,
+      };
+
+      setCoordinates(coordinate);
 
       setIsLoading(false);
     } catch (error) {
@@ -45,7 +45,7 @@ const fetchHotelById = (id) => {
 
   // coordinates,
 
-  return { hotel, isLoading, error, refetch };
+  return { hotel, isLoading, error, refetch, coordinates };
 };
 
 export default fetchHotelById;

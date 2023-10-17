@@ -5,6 +5,7 @@ import {
   View,
   TextInput,
   TouchableOpacity,
+  Alert,
 } from "react-native";
 import React, { useState } from "react";
 import { Formik } from "formik";
@@ -14,6 +15,8 @@ import HeightSpacer from "../../components/Reusable/HeightSpacer";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import WidthSpacer from "../../components/Reusable/WidthSpacer";
 import ReusableBtn from "../../components/Buttons/ReusableBtn";
+import axios from "axios";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const validationSchema = Yup.object().shape({
   username: Yup.string()
@@ -27,18 +30,77 @@ const validationSchema = Yup.object().shape({
   email: Yup.string().email("Provide a valid email").required("Required"),
 });
 
-const Registration = () => {
+const Registration = ({ navigation }) => {
   const [loader, setLoader] = useState(false);
   const [response, setResponse] = useState(null);
   const [obsecureText, setObsecureText] = useState(false);
+
+  const register = async (values) => {
+    setLoader(true);
+
+    try {
+      const response = await axios.post(
+        `http://192.168.1.236:4001/api/register`,
+        values
+      );
+
+      if (response.status === 201) {
+        setLoader(false);
+        console.log(response.data);
+        navigation.navigate("Signin");
+      }
+
+      // else {
+      //   Alert.alert("Error Creating user", "Please provie valid credentials", [
+      //     {
+      //       text: "Cancel",
+      //       onPress: () => {},
+      //     },
+      //     {
+      //       text: "Continue",
+      //       onPress: () => {},
+      //     },
+      //     { defaultIndex: 1 },
+      //   ]);
+      // }
+    } catch (error) {
+      Alert.alert("Error Creating User", error, [
+        ({
+          text: "Cancel",
+          onPress: () => {},
+        },
+        {
+          text: "Continue",
+          onPress: () => {},
+        },
+        { defaultIndex: 1 }),
+      ]);
+    } finally {
+      setLoader(false);
+    }
+  };
+
+  const errorLogin = () => {
+    Alert.alert("Invalid Form", "Please provide all required fields", [
+      {
+        text: "Cancel",
+        onPress: () => {},
+      },
+      {
+        text: "Continue",
+        onPress: () => {},
+      },
+      { defaultIndex: 1 },
+    ]);
+  };
 
   return (
     <ScrollView style={styles.container}>
       <Formik
         initialValues={{ email: "", username: "", password: "" }}
         validationSchema={validationSchema}
-        onSubmit={(value) => {
-          console.log(value);
+        onSubmit={(values) => {
+          register(values);
         }}
       >
         {({
@@ -164,7 +226,7 @@ const Registration = () => {
 
             <View style={{ alignItems: "center" }}>
               <ReusableBtn
-                onPress={handleSubmit}
+                onPress={isValid ? handleSubmit : errorLogin}
                 btnText={"REGISTER"}
                 textColor={COLORS.white}
                 width={SIZES.width - 50}

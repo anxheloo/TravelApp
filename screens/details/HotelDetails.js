@@ -1,5 +1,11 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import {
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  RefreshControl,
+} from "react-native";
+import React, { useState, useCallback } from "react";
 import { ScrollView } from "react-native";
 import AppBar from "../../components/Reusable/AppBar";
 import { COLORS, SIZES, TEXT } from "../../constants/theme";
@@ -17,13 +23,25 @@ import fetchHotelById from "../../hook/fetchHotelById";
 import { ActivityIndicator } from "react-native";
 
 const HotelDetails = ({ navigation, route }) => {
+  // const [refreshing, setRefreshing] = useState(false);
+
+  // const onRefresh = useCallback(() => {
+  //   refetch();
+  //   setRefreshing(true);
+  //   if (hotel) {
+  //     setRefreshing(false);
+  //   }
+  //   // setTimeout(() => {
+  //   //   setRefreshing(false);
+  //   // }, 2000);
+  // }, []);
+
   const id = route.params;
   console.log("THIS IS HOTEL ID:", id);
 
-  const { hotel, isLoading, error, refetch } = fetchHotelById(id);
+  const { hotel, isLoading, error, refetch, coordinates } = fetchHotelById(id);
 
-  // console.log("THIS IS TITLE:,", hotel.title);
-  // console.log("THIS IS TITLE:,", hotel);
+  console.log("THIS IS COORDITANES:", coordinates);
 
   if (isLoading) {
     return (
@@ -43,19 +61,28 @@ const HotelDetails = ({ navigation, route }) => {
     );
   }
 
-  const coordinates = hotel
-    ? {
-        id: hotel._id,
-        title: hotel.title,
-        latitude: hotel.coordinates.latitude,
-        longitude: hotel.coordinates.longitude,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01,
-      }
-    : {};
+  // const coordinates = hotel
+  //   ? {
+  //       id: hotel?._id,
+  //       title: hotel?.title,
+  //       latitude: hotel?.coordinates.latitude,
+  //       longitude: hotel?.coordinates.longitude,
+  //       latitudeDelta: 0.01,
+  //       longitudeDelta: 0.01,
+  //     }
+  //   : {};
 
   return (
-    <ScrollView>
+    <ScrollView
+    // refreshControl={
+    //   <RefreshControl
+    //     size={SIZES.medium}
+    //     color={COLORS.lightBlue}
+    //     refreshing={refreshing}
+    //     onRefresh={onRefresh}
+    //   ></RefreshControl>
+    // }
+    >
       <View style={{ height: 80 }}>
         <AppBar
           title={hotel?.title}
@@ -118,13 +145,26 @@ const HotelDetails = ({ navigation, route }) => {
                   color={"#FD9942"}
                 ></Rating>
 
-                <ReusableText
+                {/* <ReusableText
                   text={`(${hotel?.review})`}
                   family={"medium"}
                   size={SIZES.large}
                   color={COLORS.gray}
+                  numberOfLines={1}
                   // align={"center"}
-                ></ReusableText>
+                ></ReusableText> */}
+
+                <Text
+                  style={{
+                    fontFamily: "medium",
+                    fontSize: SIZES.large,
+                    color: COLORS.gray,
+                    flexShrink: 1,
+                  }}
+                  numberOfLines={1}
+                >
+                  {`(${hotel?.review})`}{" "}
+                </Text>
               </View>
             </View>
           </View>

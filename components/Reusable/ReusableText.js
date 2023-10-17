@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
     fontSize: size,
     color: color,
     textAlign: align,
+    // flexShrink: 1,
   }),
 });
 
